@@ -254,9 +254,9 @@ class DiffLevel(object):
         :param param: A ChildRelationship subclass-dependent parameter describing how to get from parent to child,
                       e.g. the key in a dict
         """
-        if self.down.t1:
+        if self.down.t1 is not None:
             self.t1_child_rel = ChildRelationship.create(klass, self.t1, self.down.t1, param)
-        if self.down.t2:
+        if self.down.t2 is not None:
             self.t2_child_rel = ChildRelationship.create(klass, self.t2, self.down.t2, param)
 
     def all_up(self):

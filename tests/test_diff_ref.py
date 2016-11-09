@@ -116,3 +116,25 @@ class DeepDiffRefTestCase(unittest.TestCase):
 
         self.assertIsInstance(change.up.t1_child_rel, NonSubscriptableIterableRelationship)
         self.assertIsNone(change.up.t2_child_rel)
+
+class DeepDiffRefWithNumpyTestCase(unittest.TestCase):
+
+    """DeepDiff Tests."""
+    def setUp(self):
+        import numpy as np
+        a1 = np.array([1.23, 1.66, 1.98])
+        a2 = np.array([1.23, 1.66, 1.98])
+        self.d1 = { 'np': a1 }
+        self.d2 = { 'np': a2 }
+        
+    def test_diff_with_numpy(self):
+        ddiff = DeepDiff(self.d1, self.d2)
+        res = ddiff.result_refs
+        self.assertEqual(res, {})
+        
+    def test_diff_with_empty_seq(self):
+        a1 = {"empty":[]}
+        a2 = {"empty":[]}
+        ddiff = DeepDiff(a1, a2)
+        res = ddiff.result_refs
+        self.assertEqual(ddiff, {})
